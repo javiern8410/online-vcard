@@ -1,0 +1,93 @@
+{
+  "name": "online-vcard",
+  "version": "1.0.0",
+  "author": "Javier Nieve",
+  "license": "ISC",
+  "description": "Online vCard",
+  "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javiern8410/online-vcard.git"
+  },
+  "keywords": [
+    "vcard",
+    "node",
+    "express",
+    "react"
+  ],
+  "homepage": "https://github.com/javiern8410/online-vcard.git#readme",
+  "engines": {
+    "node": "12.18.3"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "typings": "./types.d.ts",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "scripts": {
+    "start": "node .",
+    "start:app": "NODE_ENV=production node ./dist",
+    "debug": "node --inspect .",
+    "build:vendors": "npm install --production",
+    "build:app": "webpack --colors --progress --config ./webpack-client.js -p --mode production",
+    "build:dev": "webpack --colors --progress --config ./webpack-client.js -d --mode development --watch --info-verbosity verbose",
+    "build:server": "webpack --colors --progress --config ./webpack-server.js --mode production"
+  },
+  "dependencies": {
+    "awesome-typescript-loader": "5.2.1",
+    "axios": "0.21.1",
+    "babel-loader": "8.1.0",
+    "body-parser": "1.19.0",
+    "classnames": "2.3.1",
+    "clean-webpack-plugin": "3.0.0",
+    "compression": "1.7.4",
+    "cookie-parser": "1.4.5",
+    "cors": "2.8.5",
+    "css-loader": "5.0.1",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "express-async-errors": "3.1.1",
+    "express-handlebars": "5.1.0",
+    "express-request-id": "1.4.1",
+    "file-loader": "6.2.0",
+    "form-data": "^4.0.0",
+    "history": "4.10.1",
+    "loglevel": "1.7.0",
+    "mini-css-extract-plugin": "0.11.0",
+    "mongoose": "5.12.5",
+    "multer": "1.4.2",
+    "node-sass": "5.0.0",
+    "optimize-css-assets-webpack-plugin": "5.0.4",
+    "postcss": "8.1.0",
+    "qr-code-and-vcard": "^0.9.1",
+    "qrcode.react": "^1.0.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-helmet": "6.1.0",
+    "react-router-dom": "5.1.2",
+    "sass-loader": "10.1.0",
+    "semantic-ui-css": "2.4.1",
+    "semantic-ui-react": "2.0.3",
+    "terser-webpack-plugin": "4.1.0",
+    "typescript": "3.9.9",
+    "webpack": "4.44.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.4",
+    "@babel/plugin-proposal-class-properties": "7.10.4",
+    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-transform-runtime": "7.11.0",
+    "@babel/preset-env": "7.11.0",
+    "@babel/preset-react": "7.10.4",
+    "@babel/register": "7.10.5",
+    "copy-webpack-plugin": "6.0.0",
+    "nodemon": "2.0.4",
+    "webpack-cli": "3.3.12",
+    "webpack-node-externals": "2.5.2"
+  }
+}

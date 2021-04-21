@@ -1,0 +1,148 @@
+@import '../../../styles/colors';
+@import '../../../styles/scales';
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+
+    .search-box {
+        width: 100%;
+    }
+    
+    .section-header {
+        display: flex;
+        padding: 20px 0;
+        width: 100%;
+        justify-content: center;
+    
+        h1 {
+            font-size: 32px;
+            color: $color-gray-2;
+        }
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        max-width: 1280px;
+        padding: 10px;
+        border-radius: 2px;
+        background-color: $color-white;
+        box-shadow: 0 0 2px 1px rgba(158, 157, 157, 0.3);
+        margin-bottom: 20px;
+
+        .employee-form {
+            display: grid;
+            grid-template-columns: 0.2fr 1.8fr;
+            align-items: center;
+            gap: 5px;
+        }
+        .input {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .custom-select {
+            border-color: rgba(204, 177, 177, 0.3);
+            background: #ffffff;
+            color: rgb(34, 33, 33);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    }
+
+    .employee-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .employee-table {
+            width: 100%;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+
+            thead tr {
+                background-color: #ccc;
+            }
+
+            tbody tr:nth-child(odd) {
+                background-color: #F2F2F2;
+             }
+
+            th {
+                height: 36px;
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            td {
+                padding: 10px;
+            }
+
+            .cell {
+                &.tr {
+                    text-align: right;
+                }
+                &.tl {
+                    text-align: left;
+                }
+            }
+        }
+
+        .email-column{
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 650px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    
+        .search-box {
+            width: 50%;
+        }
+    }
+    
+    .container {
+        .employee-list {
+            width: 430px;
+
+            .email-column{
+                display: unset;
+            }
+        }
+        .main-content {
+            min-width: 330px;
+            width: 100%;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        .employee-list {
+            width: 50%;
+        }
+        .main-content {
+            min-width: 330px;
+            width: 100%;
+        }
+    }
+}

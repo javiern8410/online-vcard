@@ -1,0 +1,86 @@
+<html>
+<script>
+    function generateQRCode() {
+        var startNode = "BEGIN:VCARD" + "\n" + "VERSION:3.0" + "\n";
+        var endNode = "END:VCARD";
+        startNode += "N:" + lastName.value.trim() + ";" + firstName.value.trim() + "\n";
+        startNode += "FN:" + firstName.value.trim() + " " + lastName.value.trim() + "\n";
+        startNode += "EMAIL:" + email.value.trim() + "\n";
+        startNode += "ORG:" + org.value.trim() + "\n";
+        startNode += "TITLE:" + title.value.trim() + "\n";
+        startNode += "NOTE:" + url.value.trim() + "\n";
+        startNode += "URL:" + url.value.trim() + "\n";
+        startNode += "TEL:" + phoneNo.value.trim() + "\n";
+        startNode += "ADR:" + address1.value.trim() + ";" + address2.value.trim() + ";" + city.value.trim() + ";" + state.value.trim() + ";" + country.value.trim() + ";" + zipCode.value.trim() + "\n";
+        startNode += endNode;
+        this.qrImage.style.display = 'none';
+        this.qrImage.src = "https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=200x200&chl="
+            + encodeURIComponent(startNode);
+        this.qrImage.style.display = 'inline';
+        this.vcard.value = startNode;
+        this.vcard.style.display = 'inline';
+        this.vcardDiv.style.display = 'inline';
+        this.sampleQR.style.display = 'none';
+    }
+</script>
+<style>
+    DIV {
+        color: royalblue;
+    }
+
+    H3 {
+        color: PURPLE;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        font-size: 0.929em;
+    }
+</style>
+
+<body>
+    <form method="post">
+        <center>
+            <h2> Tips and Tricks from Officetricks.com</h2>
+            <h2>Generate QR Code for your Business VCARD using Google Chart API</h2>
+        </center>
+        <div style="float:left;width:30%;padding-left:20%;">
+            <label for="firstName">First Name : </label>
+            <input type="text" id="firstName" value="" size="40"> <br>
+            <label for="lastName">Last Name : </label> <input type="text" id="lastName" value="" size="40"> <br>
+            <label for="lastName">Phone No :</label> <input type="text" id="phoneNo" value="" size="40"> <br>
+            <label for="org">Organisation or Business:</label> <input type="text" id="org" value="" size="40"> <br>
+            <label for="org">Job Title:</label><input type="text" id="title" value="" size="20"> <br>
+            <label for="org">Website:</label><input type="text" id="url" value="" size="40"> <br>
+            <label for="org">Email:</label><input type="text" id="email" value="" size="40"> <br>
+            <label for="org">Address Line1:</label><input type="text" id="address1" value="" size="40"> <br>
+            <label for="org">Address Line2:</label><input type="text" id="address2" value="" size="40"> <br>
+            <label for="org">City:</label><input type="text" id="city" value="" size="40"> <br>
+            <label for="org">State:</label><input type="text" id="state" value="" size="40"> <br>
+            <label for="org">Country:</label><input type="text" id="country" value="" size="40"> <br>
+            <label for="org">Zip Code: </label><input type="text" id="zipCode" value="" size="40"> <br>
+            <br>
+            <input type="button" value="Embed VCARD in QRCode Format" onclick="javascript:generateQRCode();"><br>
+        </div>
+        <div style="float:right;width:40%;padding-right:10%;">
+            <div style="display:none;" id="vcardDiv">
+                <h3>VCARD Created Successfully !!!!!! </h3>
+                <textarea rows="13" cols="40" style='display:none;' id="vcard" border="2">
+</textarea><BR>
+                <H3>VCARD Embedded QR Code Image</H3>
+            </div>
+            <div style="display:inline;" id="sampleQR">
+                <H3>Sample QR Code Image for Officetricks.com Website URL</H3>
+            </div>
+            <img id='qrImage' style='display:inline;'
+                src='https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=200x200&chl=http%3A%2F%2Fofficetricks.com' />
+            <h3>
+                For more Tips and Queries, logon to <a href="http://officetricks.com" target="blank">
+                    http://officetricks.com<a> or email to <a
+                            href="mailto:officetricks123@gmail.com">officetricks123@gmail.com</a>.</h3>
+        </div>
+    </form>
+</body>
+
+</html>

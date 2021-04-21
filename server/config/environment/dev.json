@@ -1,0 +1,12 @@
+{
+  "env": "DEV",
+  "views-context": "/",
+  "static-context": "/static",
+  "api-context": "/api",
+  "error-stacktrace": true,
+  "rest": {
+    "x-client": "node-express-react-base-dev",
+    "timeout": 360000,
+    "integration": {}
+  }
+}

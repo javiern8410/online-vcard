@@ -1,0 +1,20 @@
+@import '../../../styles/colors';
+
+.navbar {
+    display: flex;
+    background-color: $color-blue-1;
+    height: 65px;
+    justify-content: center;
+    max-width: 100%;
+
+    .links-box {
+        display: flex;
+        max-width: 1280px;
+        align-items: center;
+        width: 100%;
+
+        .logo {
+            margin-right: 30px;
+        }
+    }
+}
