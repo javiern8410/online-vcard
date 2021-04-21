@@ -1,0 +1,18 @@
+@import '../../../styles/colors';
+.breadcrumb {
+    width: 100%;
+    max-width: 1280px;;
+    min-height: 60px;
+    padding: 20px 0;
+    font-size: 12px;
+    color: $color-gray-3;
+
+    ul li:not(:last-child) {
+        float: left;
+        margin-right: 10px;
+
+        &::after {
+            content: " > ";
+        }
+    }
+}

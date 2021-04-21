@@ -1,0 +1,128 @@
+@import "colors";
+@import "scales";
+
+.skeleton-grid-1 {
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	width: 70%;
+
+	div {
+		padding: 10px;
+	}
+}
+
+.skeleton-grid-2 {
+	display: grid;
+	grid-template-columns: 4fr 0.5fr;
+	width: 100%;
+
+	div {
+		padding: 10px;
+	}
+}
+
+@keyframes skeleton-gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@mixin skeleton-gradient-background {
+	background: linear-gradient(90deg, $color-gray-5, $color-gray-4, $color-gray-5);
+	animation: skeleton-gradient-animation 5s ease infinite;
+	background-size: 500% 500%;
+}
+
+.skeleton-background {
+	@include skeleton-gradient-background;
+}
+
+.skeleton-line {
+	height: $font-size-2;
+	width: 100%;
+	display: block;
+	border-radius: 5px;
+
+	&:not(:last-child) {
+		margin-bottom: $space-size-2;
+	}
+
+	@include skeleton-gradient-background;
+
+	&.-small {
+		height: $font-size-1;
+	}
+
+	&.-big {
+		height: $font-size-4;
+	}
+
+	&.-very-big {
+		height: $font-size-6;
+	}
+
+	&.-line-10 {
+		width: 10%;
+	}
+
+	&.-line-15 {
+		width: 15%;
+	}
+
+	&.-line-20 {
+		width: 20%;
+		height: 36px;
+	}
+
+	&.-line-25 {
+		width: 25%;
+	}
+
+	&.-line-35 {
+		width: 35%;
+	}
+
+	&.-line-50 {
+		width: 50%;
+	}
+
+	&.-line-60 {
+		width: 60%;
+	}
+
+	&.-line-75 {
+		width: 75%;
+	}
+
+	&.-line-90 {
+		width: 90%;
+	}
+
+	&.-line-100 {
+		width: 100%;
+	}
+	
+	&.-line-100-36 {
+		width: 100%;
+		height: 36px;
+	}
+
+	&.-square-180 {
+		width: 180px;
+		height: 180px;
+	}
+
+	&.-square-500 {
+		width: 300px;
+		height: 500px;
+	}
+
+}

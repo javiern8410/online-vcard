@@ -1,0 +1,61 @@
+@import '../../../styles/colors';
+
+.navbar {
+    display: flex;
+    background-color: $color-yellow-1;
+    height: 65px;
+    justify-content: center;
+    max-width: 100%;
+
+    .search-box {
+        display: flex;
+        max-width: 1280px;
+        align-items: center;
+        width: 100%;
+
+        .logo {
+            margin-right: 30px;
+        }
+
+        .form-container {
+            width: 100%;
+
+            .search-form {
+                position: relative;
+
+                .form-control {
+                    font-size: 18px;
+                    height: 40px;
+                    width: 100%;
+                    color: $color-gray-1;
+                    padding: 5px;
+                    -webkit-border-radius: 2px;
+                    border-radius: 2px;
+                    background-color: #fff;
+                    border: 0 rgba(0, 0, 0, .2);
+
+                    &:focus {
+                        outline: none !important;
+                        border: 0 rgba(0, 0, 0, .2);
+                        box-shadow: 0 0 2px 2px rgba(90, 89, 89, 0.3);
+                    }
+                }
+
+                .search-btn {
+                    position: absolute;
+                    right: 8px;
+                    top: 8px;
+                    width: 35px;
+                    height: 25px;
+                    cursor: pointer;
+                    border: 0;
+                    background-image: url('../../../images/search-icon.svg');
+                    background-position: right;
+                    background-repeat: no-repeat;
+                    border-left: 1px solid $color-gray-5;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}
