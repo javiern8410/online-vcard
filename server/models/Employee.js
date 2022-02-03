@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose'; 
 
-
-const employeeShema = new Schema({
+const employeeSchema = new Schema({
     firstName: String,
     lastName: String,
     email: String,
@@ -12,7 +11,7 @@ const employeeShema = new Schema({
     photo: String
 });
 
-employeeShema.set('toJSON', {
+employeeSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id;
         delete returnedObject._id;
@@ -20,6 +19,6 @@ employeeShema.set('toJSON', {
     }
 });
 
-const Employee = model('Employee', employeeShema);
+const Employee = model('Employee', employeeSchema);
 
 module.exports = Employee;

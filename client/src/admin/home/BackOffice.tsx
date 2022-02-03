@@ -6,6 +6,7 @@ import NavBar from '../../components/navbar/NavBar';
 import { Pagination, Button, Input, Icon, Confirm } from 'semantic-ui-react';
 import { SkeletonRow } from '../../common/skeletons';
 import './backoffice.scss';
+import { EmployeesClient } from '../../clients/employeeClient';
 
 export interface Employee {
     company: String;
@@ -38,6 +39,8 @@ const initialEditMode = {
 const BackOffice: FunctionComponent = () => {
     const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
+	const [searchWord, setSearchWord] = useState("");
+    
 	const [employee, setEmployee] = useState<Employee>(initialEmployee);
 
     const [loadingList, setLoadingList] = useState(false);
@@ -75,7 +78,7 @@ const BackOffice: FunctionComponent = () => {
         try {
             setLoadingList(true);
             setErrorList(false);
-            const response = (await axios.get(`api/employees`)).data;
+            const response: Employee[]  = (await EmployeesClient.getEmployees()).data;
             setEmployeeList(response)
             setLoadingList(false);
             setPage(1);
@@ -105,10 +108,18 @@ const BackOffice: FunctionComponent = () => {
         try {
             let response;
 
-            if(editMode.editing) {
+           /*  if(editMode.editing) {
                 response = (await axios.put(`api/employees/${editMode.id}`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 })).data;
+            } else{
+                response = (await axios.post(`api/employees`, formData, {
+                    headers: { "Content-Type": "multipart/form-data" }
+                })).data;
+            } */
+
+            if(editMode.editing) {
+                response = (await EmployeesClient.updateEmployee(editMode.id, formData)).data;
             } else{
                 response = (await axios.post(`api/employees`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
@@ -155,6 +166,10 @@ const BackOffice: FunctionComponent = () => {
 
     const handlePaginationChange = (event, data) => setPage(data.activePage);
 
+    const viewEmployee = (id: string) => {
+        return window.open(`/employees/${id}`, '_blank')
+    }
+
     const handleDelete = (id:string) => {
         setIdToDetele(id);
         setShowConfirmDialog(true);
@@ -169,6 +184,16 @@ const BackOffice: FunctionComponent = () => {
         deleteEmployee(idToDetele);
     };
 
+    const tableSearch = employee => {
+        if(searchWord) {
+            const eName = employee.firstName.toLowerCase();
+            const eEmail = employee.email.split("@")[0].toLowerCase();
+            const text = searchWord.toLowerCase();
+            return eName.indexOf(text) != -1 || eEmail.indexOf(text) != -1;
+        }
+        return true
+    }
+
     useEffect(() => {
         getEmployees()
     }, []);
@@ -177,9 +202,6 @@ const BackOffice: FunctionComponent = () => {
         <>
             <NavBar />
             <div className="header">
-                <div className="search-box">
-                    <SearchBox />
-                </div>
                 <div className="section-header">
                     <h1>Employee Manager</h1>
                 </div>
@@ -307,48 +329,73 @@ const BackOffice: FunctionComponent = () => {
                                         required
                                     />
                                 </div>
-                                <div style={{gridColumn: '1/3', textAlign: 'center', padding: '20px 0fer'}}>
+                                <div style={{gridColumn: '1/3', textAlign: 'center'}}>
                                     <Button.Group>
                                         <Button type="reset" onClick={() => setEmployee(initialEmployee)} size='large'>Cancel</Button>
                                         <Button.Or />
                                         <Button type="submit" loading={loading ? true : false}  disabled={loading ? true : false} primary size='large'>Save</Button>
                                     </Button.Group>
                                 </div>
+                                {error && (
+                                    <div style={{gridColumn: '1/3', textAlign: 'center'}}>
+                                        <h2>Error on save data, try again!</h2>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </form>
                 </div>
                 <div className="employee-list">
-                        <table className="employee-table">
-                            <thead>
+                    <div className="search-box">
+                        <SearchBox 
+                            searchWord={searchWord}
+                            setSearchWord={setSearchWord} 
+                        />
+                    </div>
+                    <table className="employee-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th className="email-column">Email</th>
+                                <th>Options</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            {loadingList && (
                                 <tr>
-                                    <th>Name</th>
-                                    <th className="email-column">Email</th>
-                                    <th>Options</th>
+                                    <td colSpan={3}>
+                                        <SkeletonRow />
+                                    </td>
                                 </tr>
-                                </thead>
-                            <tbody>
-                                {loadingList && (
-                                    <tr>
-                                        <td colSpan={3}>
-                                            <SkeletonRow />
+                            )}
+                            {errorList && (
+                                <tr>
+                                    <td colSpan={3}>
+                                        Error getting employees data, try in few minutes!
+                                    </td>
+                                </tr>
+                            )}
+                            {!loadingList && employeeList.length > 0 && employeeList.filter(tableSearch).slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize).map(employee => (
+                                    <tr key={employee.id}>
+                                        <td className="cell tl" style={{with: '275px'}}>{`${employee.firstName} ${employee.lastName}`}</td>
+                                        <td className="cell tl email-column">{employee.email}</td>
+                                        <td className="cell tr" style={{with: '100px'}}>
+                                            <Icon link name="eye" onClick={() => viewEmployee(employee.id)} /> {' '} 
+                                            <Icon link name="pencil alternate" title="Edit employee" onClick={() => editEmploye(employee)} /> {' '} 
+                                            <Icon link name="delete" title="Delete employee" onClick={() => handleDelete(employee.id)} />    
                                         </td>
                                     </tr>
-                                )}
-                                {!loadingList && employeeList.length > 0 && employeeList.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize).map(employee => (
-                                        <tr key={employee.id}>
-                                            <td className="cell tl" style={{with: '275px'}}>{`${employee.firstName} ${employee.lastName}`}</td>
-                                            <td className="cell tl email-column">{employee.email}</td>
-                                            <td className="cell tr" style={{with: '100px'}}>
-                                                <Icon link name="eye" onClick={() => window.open(`/employees/${employee.id}`, '_blank')} /> {' '} 
-                                                <Icon link name="pencil alternate" title="Edit employee" onClick={() => editEmploye(employee)} /> {' '} 
-                                                <Icon link name="delete" title="Delete employee" onClick={() => handleDelete(employee.id)} />    
-                                            </td>
-                                        </tr>
-                                    )
-                                )}
-                            </tbody>
-                        </table>
+                                )
+                            )}
+                            {!loadingList && !errorList && (employeeList.length === 0 || employeeList.filter(tableSearch).length === 0) && (
+                                <tr>
+                                    <td colSpan={3}>
+                                        Employee list is empty!
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                     <Pagination
                         boundaryRange={0}
                         defaultActivePage={page}

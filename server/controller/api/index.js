@@ -99,7 +99,7 @@ router.post('/employees', upload.single('picture'), async (req, res) => {
 router.put('/employees/:id', upload.single('picture'), (req, res) => {
 	const { id } = req.params;
 	const employee = req.body;
-	const photo = req.file.filename;
+	const photo = req?.file?.filename || null;
 
 	const newEmployeeInfo = {
 		firstName: employee.firstName,
